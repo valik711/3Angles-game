@@ -45,6 +45,7 @@ bool HelloWorld::init()
     audio->playBackgroundMusic("magntron__gamemusic.mp3", true);
     
     Vector<Label*> menuLbls;
+    //тексты для кнопок
     menuLbls.pushBack(Label::createWithTTF(config, "New game"));
     menuLbls.pushBack(Label::createWithTTF(config, "Rules"));
     menuLbls.pushBack(Label::createWithTTF(config, "Sound: on"));
@@ -99,7 +100,7 @@ bool HelloWorld::init()
     menu->alignItemsVerticallyWithPadding(5);
     this->addChild(menu, 1);
 
-        
+        // подключение шрифта к главному заголовку в приложении
     auto label = Label::createWithTTF("3Angles", "fonts/JeanSunHo.ttf", 120);
     
     // position the label on the center of the screen
@@ -113,7 +114,7 @@ bool HelloWorld::init()
     return true;
 }
 
-
+// колбк для выхода
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
     //Close the cocos2d-x game scene and quit the application
@@ -122,11 +123,6 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
-    
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-    
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
     
     
 }

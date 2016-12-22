@@ -4,7 +4,7 @@
 //
 //  Created by Valik on 11/6/16.
 //
-//
+//  Класс треугольника. содержит сам спрайт координты и методы для перемещения фигур
 
 #include "Triangle.hpp"
 #include <math.h>
@@ -40,7 +40,7 @@ filatov::Triangle::Triangle(int pts, int rot, int x, int y, int z){
     
     
 }
-
+// перемещение по иксу в положительном направлении
 
 void filatov::Triangle::movePlusX(){
     if(std::find(cells.begin(), cells.end(), 100*(x+1)+10*y+z) != cells.end()) {
@@ -121,6 +121,8 @@ void filatov::Triangle::rotateCW(){
     rotation++;
     if(rotation%3 == 0) this->sprite->setPosition(this->sprite->getPosition().x, this->sprite->getPosition().y+5);
 }
+
+// коорлинаты фигур
 
 std::vector<int> filatov::Triangle::getNeighbours(){
     switch(100*x+10*y+z){

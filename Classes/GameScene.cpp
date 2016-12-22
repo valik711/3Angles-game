@@ -84,6 +84,8 @@ bool Game::init()
     draw->drawTriangle(Vec2(size.width/2, 374), Vec2(size.width/2+120, 164), Vec2(size.width/2-120,164), Color4F::WHITE);
     this->addChild(draw, 1);
     
+    //стандартные координаты блоков
+    
     auto grid = DrawNode::create();
     grid->drawSegment(Vec2(size.width/2-60, 164), Vec2(size.width/2+30, 322), 1.2f,
                       Color4F(Color4B(173, 228, 255, 255)));
@@ -172,7 +174,7 @@ bool Game::init()
     
     
     
-    
+    // вывод очков
     
     Label *scoreLbl = Label::createWithTTF(config, "Score:\n\n 100");
     scoreLbl->setHorizontalAlignment(TextHAlignment::CENTER);
@@ -209,6 +211,7 @@ bool Game::init()
     };
     
     
+    // событие нажатия с перемещением
     
     // trigger when moving touch
     listener1->onTouchMoved = [this](Touch* touch, Event* event){
@@ -239,7 +242,7 @@ bool Game::init()
         int dz[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         
         
-        
+        // сложная функция вычисления перемещения блоков. протестирована
         
         
         for(int act = 0; act < 10; act++){
@@ -364,11 +367,6 @@ void Game::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
-    
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-    
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
     
     
 }
