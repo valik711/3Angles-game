@@ -23,6 +23,7 @@ namespace filatov {
 class Triangle{
 private:
     std::vector<int> cells = {30, 130, 120, 220, 210, 310, 300, 131, 231, 221, 321, 311, 232, 332, 322, 333};
+    std::vector<int> noInverseCells = {30, 120, 210, 300, 131, 221, 311, 232, 322, 333};
 
     int points;
     int rotation;
@@ -113,6 +114,11 @@ public:
     void nullds();
     
     std::vector<int> getNeighbours();
+    
+    int getRandomCell(){
+        srand(time(NULL));
+        return noInverseCells.at(rand()%10);
+    }
     
     
 };

@@ -144,7 +144,7 @@ bool Game::init()
     Label *undosNumLbl = Label::createWithTTF(config, undosStr);
     undosNumLbl->setTextColor(cocos2d::Color4B(14, 109, 223, 255));
     undosNumLbl->setPosition(size.width/2, size.height-22);
-    this->addChild(undosNumLbl, 1);
+    //this->addChild(undosNumLbl, 1); TODO: TURN IT ONNNNNNNN
     
     auto undoButton = ui::Button::create("undo.png");
     undoButton->setAnchorPoint(Point(1, 1));
@@ -168,7 +168,7 @@ bool Game::init()
         }
     });
 
-    this->addChild(undoButton,1);
+    //this->addChild(undoButton,1); // TODO: TURN IT ON
     
     
     
@@ -221,13 +221,22 @@ bool Game::init()
         int deltay = touch->getLocation().y - touchy;
         if(deltay == 0) deltay = 1;
         
-        //trias.push_back(new filatov::Triangle(1, 0, 3, 0, 0));
-        trias.push_back(new filatov::Triangle(99, 0, 3, 2, 2));
-        this->addChild(trias.at(trias.size()-1)->sprite, 1);
+        int randomcell = (new filatov::Triangle(0,0,0,0,0))->getRandomCell();
+        int newx = randomcell / 100;
+        int newy = randomcell/10-(randomcell/100)*10;
+        int newz = randomcell%10;
         
-        int dx[10] = {0,0,0,0,0,0,0,0,0,0};
-        int dy[10] = {0,0,0,0,0,0,0,0,0,0};
-        int dz[10] = {0,0,0,0,0,0,0,0,0,0};
+        if(isempty(trias, newx, newy, newz)){
+            trias.push_back(new filatov::Triangle(1, 0, newx, newy, newz));
+            this->addChild(trias.at(trias.size()-1)->sprite, 1);
+        }
+        
+        
+        
+        
+        int dx[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int dy[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        int dz[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         
         
         
@@ -310,13 +319,6 @@ bool Game::init()
     };
         for(int i = 0; i < trias.size(); i++){
             
-            
-               // if(abs(getTriaRotation(trias, *it) - trias.at(i)->getRotation())%3 == 0  && abs(getTriaRotation(trias, *it) - trias.at(i)->getRotation())%6 != 0){audio->playEffect("fins__button.wav");
-                   // exit(1);
-                //}
-                //xyz/100 && (*tr)->getY() == xyz/10-(xyz/100)*10 && (*tr)->getZ() == xyz - (xyz/100)*100 - (xyz/100)*10)
-            
-            
             auto rotate = RotateBy::create(0.5, 60);
             if(abs(trias.at(i)->dx + trias.at(i)->dy + trias.at(i)->dz)%2 == 1){
                 trias.at(i)->sprite->runAction(rotate);
@@ -326,6 +328,7 @@ bool Game::init()
             trias.at(i)->sprite->runAction(move);
             trias.at(i)->nullds();
         }
+        
         for(int i = 0; i < trias.size(); i++){
             std::vector<int> nei = trias.at(i)->getNeighbours();
 
@@ -337,6 +340,8 @@ bool Game::init()
             
             
         }
+        
+       
         
     };
     
